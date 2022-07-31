@@ -103,30 +103,32 @@ ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
-     auto check = [](const string& s) {
-    int bal = 0;
-    for (auto  c : s) {
-      if (c == '(') ++bal;
-      if (c == ')') --bal;
-      if (bal < 0) return false;
-    }
-    return bal == 0;
-  };
 void precompute(){}
 void solve() {
-    string s; cin >> s;
-    ll n = sz(s), op = n/2, cl = n/2;
-    vll qps; 
-    for(int i = 0; i < n; i++) if(s[i]=='(') op--; else if(s[i]==')') cl--; else qps.pb(i);
-    for(int i = 0; i < sz(qps); i++) if(i<op)  s[qps[i]]='('; else s[qps[i]]=')';
-    if(op>0 and cl>0){
-        swap(s[qps[op-1]],s[qps[op]]);
-        if(check(s)) no;
-        else yes;
+    ll n, m; 
+    cin >> n >> m;
+    vll uhp(n), deg(n,0); rep(i,0,n) cin >> uhp[i];
+    vpll que(m);
+    rep(i,0,m) {
+        cin >> que[i].ff  >> que[i].ss;
+        deg[--que[i].ff]++;
+        deg[--que[i].ss]++;
     }
-    else yes;
-}
+    // _print(deg);
+    ll ans = INT_MAX;
+    if(m%2==0) ans=0;
+    else{
+        rep(i,0,n) 
+        if(deg[i]%2==1) ans=min(ans,uhp[i]);
+        // _print(ans);
+        rep(i,0,m) 
+        if(deg[que[i].ff]%2==0 and deg[que[i].ss]%2==0) 
+        ans=min(ans,uhp[que[i].ff]+uhp[que[i].ss]);
+    }
+    cout<<ans<<"\n";
 
+}
+ 
 int main() {
     IOS;
     precompute();

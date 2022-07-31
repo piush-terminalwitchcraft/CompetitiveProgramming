@@ -90,8 +90,8 @@ struct custom_hash {
  
 /* CONSTANTS */
 #define PI 3.141592653589793
-#define yes cout<<"YES\n"
-#define no cout << "NO\n"
+#define yes cout<<"Yes\n"
+#define no cout << "No\n"
 const ll MOD = 1e9 + 7;
 const ll INF = 1000000000;
 const ll MAX_N = 2e5 + 2;
@@ -102,31 +102,47 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
-
-     auto check = [](const string& s) {
-    int bal = 0;
-    for (auto  c : s) {
-      if (c == '(') ++bal;
-      if (c == ')') --bal;
-      if (bal < 0) return false;
-    }
-    return bal == 0;
-  };
+/*
+3 3 2
+8 8
+1 1 2
+1 1 2
+1 1 2
+*/
 void precompute(){}
 void solve() {
-    string s; cin >> s;
-    ll n = sz(s), op = n/2, cl = n/2;
-    vll qps; 
-    for(int i = 0; i < n; i++) if(s[i]=='(') op--; else if(s[i]==')') cl--; else qps.pb(i);
-    for(int i = 0; i < sz(qps); i++) if(i<op)  s[qps[i]]='('; else s[qps[i]]=')';
-    if(op>0 and cl>0){
-        swap(s[qps[op-1]],s[qps[op]]);
-        if(check(s)) no;
-        else yes;
-    }
-    else yes;
+    ll n, m, c; cin >> n >> m >> c;
+    vll clr(c); 
+    rep(i,0,c) cin >> clr[i];                          
+    bool flag;
+    long long tot=0;
+    flag=0;
+    tot=0;
+	for (int i=0;i<c;i++){
+		if (clr[i]/n>2)
+			flag=1;
+		if (clr[i]/n>=2)
+			tot+=clr[i]/n;
+	}
+	if (tot>=m && (flag || m%2==0)){
+		yes;
+		return ;
+	}
+	flag=0;
+	tot=0;
+	for (int i=0;i<c;i++){
+		if (clr[i]/m>2)
+			flag=1;
+		if (clr[i]/m>=2)
+			tot+=clr[i]/m;
+	}
+	if (tot>=n && (flag || n%2==0)){
+		yes;
+		return ;
+	}
+	no;
 }
-
+ 
 int main() {
     IOS;
     precompute();
