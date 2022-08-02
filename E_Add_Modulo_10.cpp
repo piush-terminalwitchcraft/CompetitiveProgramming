@@ -103,9 +103,33 @@ ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
-void precompute(){}
+/*
+
+
+*/
+ll arr[10] = {-1,0,0,1,2,-1,1,3,2,3};
+void precompute(){
+
+}
 void solve() {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    bool any = false;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+            while (a[i] % 10 != 0 && a[i] % 10 != 2) 
+            a[i] += a[i] % 10;
+        any |= (a[i] % 10 == 0);
+    }
+    if (any) {
+      cout << (a == vector<int>(n, a[0]) ? "Yes" : "No") << '\n';
+      return;
+    }
+    int val = a[0] % 20;
+    bool ok = true;
+    rep(i,0,n) ok &= (a[i] % 20 == val);
+    cout << (ok ? "Yes" : "No") << '\n';
 }
  
 int main() {

@@ -105,7 +105,24 @@ bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) re
 
 void precompute(){}
 void solve() {
-    
+    int k; cin >> k;
+    int dig = 9;
+    stack<int> st;
+    while(k>0){
+        if(k>=dig){
+            st.push(dig);
+            k -= dig--;
+        }
+        else{
+            st.push(k);
+            k=0;
+        }
+    }
+    while(!st.empty()) {
+        cout << st.top();
+        st.pop();
+    }
+    cout << "\n";
 }
  
 int main() {

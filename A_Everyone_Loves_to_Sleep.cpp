@@ -105,7 +105,21 @@ bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) re
 
 void precompute(){}
 void solve() {
-    
+    int n, h, m;
+    cin >> n >> h >> m;
+    int ans = 12345;
+    for (int i = 0; i < n; i++) {
+      int hh, mm;
+      cin >> hh >> mm;
+      int x = h * 60 + m;
+      int y = hh * 60 + mm;
+      int diff = y - x;
+      if (diff < 0) {
+        diff += 1440;
+      }
+      ans = min(ans, diff);
+    }
+    cout << ans / 60 << " " << ans % 60 << '\n';
 }
  
 int main() {

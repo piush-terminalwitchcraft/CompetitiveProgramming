@@ -105,7 +105,20 @@ bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) re
 
 void precompute(){}
 void solve() {
-    
+    ll n , ans;
+    cin >> n;
+    ans = 0;
+    vll a(n); 
+    rep(i,0,n) cin >> a[i];
+    unordered_map<ll,ll,custom_hash> mp;
+    repr(i,n-1,0) {
+        if(mp[a[i]]==0) mp[a[i]]++;
+        else {
+            ans = i+1;
+            break;
+        }
+    }
+    cout << ans << '\n';
 }
  
 int main() {

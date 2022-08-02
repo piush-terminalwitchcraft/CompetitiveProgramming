@@ -105,7 +105,39 @@ bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) re
 
 void precompute(){}
 void solve() {
-    
+    string str;
+    cin >> str;
+    int len = (int) str.size();
+    int n; cin >> n;
+    vector<string> s(n);
+    rep(i,0,n) cin >> s[i];
+    vi ridx(len + 1, -1),  who(len + 1, -1);
+    rep(id,0,n) {
+      string& w = s[id];
+      for (int i = 0; i <= (int) str.size() - (int) w.size(); i++) 
+        if (str.substr(i, w.size()) == w) 
+        if (i + (int) w.size() > ridx[i]) 
+        ridx[i] = i + (int) w.size(), who[i] = id;
+    }
+    int ans = 0, idx = 0;
+    vector<pii> res;
+    while (idx < len) {
+      int pos = (int) (max_element(ridx.begin(), ridx.begin() + idx + 1) - ridx.begin());
+      int to = ridx[pos];
+      if (to <= idx) {
+        ans = -1;
+        break;
+      }
+      res.pb({who[pos], pos});
+      ans += 1;
+      idx = to;
+    }
+    cout << ans << '\n';
+    if (ans != -1) {
+      for (auto& u : res) {
+        cout << u.first + 1 << " " << u.second + 1 << '\n';
+      }
+    }
 }
  
 int main() {

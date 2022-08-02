@@ -102,10 +102,15 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
-
+/*
+a = x+y,b = y+z, c = z+x;
+*/
 void precompute(){}
 void solve() {
-    
+    ll n , d12, d23, d13;
+    cin >> n >> d12 >> d23 >> d13;
+    ll nno = 4;
+
 }
  
 int main() {
