@@ -22,7 +22,8 @@
         "bitset": "cpp",
         "numeric": "cpp",
         "iomanip": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "cmath": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

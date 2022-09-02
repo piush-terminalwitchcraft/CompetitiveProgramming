@@ -103,35 +103,33 @@ ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
-int d(char c){return c-'0';}
-
 void precompute(){}
 void solve() {
-   int N; cin >> N;
-        int A[N];
-        rep(i,0,N) {
-            char C; cin >> C; A[i] = C - '1';
-        }
- 
-        map<int, int> cnts;
-        ll ans = 0;
-        cnts[0] = 1;
-        int cur = 0;
-        rep(i,0,N) {
-            cur += A[i];
-            ans += cnts[cur];
-            cnts[cur]++;
-        }
-    cout<<ans<<"\n";
+    ll n; cin >> n;
+    string s; cin >> s;
+    priority_queue<ll> pq;
+    ll ans = 0, st= 0, ed = n-1;
+    rep(i,0,n){
+        if(s[i]=='L') pq.push(ed-st), ans += st;
+        else pq.push(st-ed), ans += ed;
+        ed--;
+        st++;
+    }
+    ll tmpans = 0;
+    while(!pq.empty()){
+        if(pq.top()>=0)
+        tmpans += pq.top();
+        pq.pop();
+        cout << ans + tmpans << " ";
+    }
+    cout << "\n";
+
 }
  
 int main() {
     IOS;
     precompute();
     ll t = 1;
-    int a = 5;
-    int c = (--a) + (++a);
-    cout << c << "\n";
     cin >> t;
     for(int i = 1; i <= t; i++){
         //cout << "Case #<< i << " ";

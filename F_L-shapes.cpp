@@ -103,35 +103,71 @@ ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
-int d(char c){return c-'0';}
-
 void precompute(){}
 void solve() {
-   int N; cin >> N;
-        int A[N];
-        rep(i,0,N) {
-            char C; cin >> C; A[i] = C - '1';
+   int n, m;
+    cin >> n >> m;
+    vector<string> s(n);
+    vector<vector<int>> a(n, vector<int>(m, -1));
+    rep(i,0,n) {
+        cin >> s[i];
+        for(int j=0;j<m;++j) {
+            if(s[i][j] == '.') {
+                a[i][j] = 0;
+            }
         }
- 
-        map<int, int> cnts;
-        ll ans = 0;
-        cnts[0] = 1;
-        int cur = 0;
-        rep(i,0,N) {
-            cur += A[i];
-            ans += cnts[cur];
-            cnts[cur]++;
+    }
+    int cnt = 1;
+    rep(i,0,n-1) {
+        rep(j,0,m-1) {
+            int emp = 0;
+            rep(k,0,2) {
+                rep(l,0,2) {
+                    if(s[i + k][j + l] == '.') {
+                        ++emp;
+                    }
+                }
+            }
+            if(emp == 1) {
+                rep(k,0,2) {
+                    rep(l,0,2) {
+                        if(s[i + k][j + l] == '*') {
+                            a[i + k][j + l] = cnt;
+                        }
+                    }
+                }
+                ++cnt;
+            }
         }
-    cout<<ans<<"\n";
+    }
+    rep(i,0,n) {
+        rep(j,0,m) {
+            if(s[i][j] == '*' and a[i][j] == -1) {
+                no;
+                return ;
+            }
+            if(a[i][j] == 0) {
+                continue;
+            }
+            rep(x,-1,2) {
+                rep(y,-1,2) {
+                    if(i + x >= 0 and i + x < n and j + y >= 0 and j + y < m) {
+                        if(a[i + x][j + y] != 0 and a[i + x][j + y] != a[i][j]) {
+                            no;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    yes;
 }
  
 int main() {
     IOS;
     precompute();
     ll t = 1;
-    int a = 5;
-    int c = (--a) + (++a);
-    cout << c << "\n";
     cin >> t;
     for(int i = 1; i <= t; i++){
         //cout << "Case #<< i << " ";

@@ -102,36 +102,63 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
+/*
+3 - 011
+01
+01
+01
+0,0 
+5 2 8
+5
 
-int d(char c){return c-'0';}
+0101010011
 
+0<=A[1]<=x ,
+odd powers
+
+A[j] = 1<<i
+
+3 4 4 8
+5
+
+2^2 = 2^1 + 2^1
+2^k = 2^k-1 + 2^k-1
+*/
 void precompute(){}
 void solve() {
-   int N; cin >> N;
-        int A[N];
-        rep(i,0,N) {
-            char C; cin >> C; A[i] = C - '1';
+    ll n, x; cin >> n >> x;
+    vpll tmpans;
+    for(int i = 0; i < 30; i++){
+        if((n&(1<<i))){
+            if(i%2) tmpans.pb({(1<<i),1});
+            else{
+                if(i>0){
+                    tmpans.pb({(1<<(i-1)),1});
+                    tmpans.pb({(1<<(i-1)),1});
+                }
+                else tmpans.pb({1,0});
+            }
         }
- 
-        map<int, int> cnts;
-        ll ans = 0;
-        cnts[0] = 1;
-        int cur = 0;
-        rep(i,0,N) {
-            cur += A[i];
-            ans += cnts[cur];
-            cnts[cur]++;
-        }
-    cout<<ans<<"\n";
+    }
+    deb(tmpans);
+    ll ns = tmpans.size();
+    ll rsum = tmpans[0].ff, ans = 1;
+    for(int i = 1; i < ns; i++){
+        if(tmpans[i].ss == 1 and rsum+tmpans[i].ff <= x) 
+        rsum+=tmpans[i].ff;
+        else ans++;
+    }
+    if(rsum > x and ll(log2(rsum))%2==0) cout<<-1;
+    else cout<<ans;
+    cout<<"\n";
+
+    
 }
  
 int main() {
     IOS;
     precompute();
     ll t = 1;
-    int a = 5;
-    int c = (--a) + (++a);
-    cout << c << "\n";
     cin >> t;
     for(int i = 1; i <= t; i++){
         //cout << "Case #<< i << " ";
