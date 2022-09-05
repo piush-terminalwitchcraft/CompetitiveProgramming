@@ -102,25 +102,38 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
+/*
+RRRBBRRRRBB
+12411430000
 
+*/
 void precompute(){}
 void solve() {
-    ll n, tmp;  cin >> n;
-    ll oc = 0, ec = 0, oidx = -1, eidx = -1; 
+    ll n ; cin >> n; 
+    string s; cin >> s;
+    vll rng(n); rep(i,0,n) cin >> rng[i];
+    vll dp(n+1,-1);
     rep(i,0,n){
-        cin >> tmp;
-        tmp%=2;
-        if(tmp) oc++,oidx=i+1;
-        else ec++,eidx=i+1;
+        dp[i+1] = dp[i];
+        if(rng[i]!=0)
+        dp[i+1] = max(rng[i]+i+1,dp[i+1]);
+        // if(dp[i]);
+        // if(dp[i+1]==i+1) dp[i+1] = -1;
     }
-    if(oc<ec)cout<<oidx;else cout<<eidx;
+    ll sidx = -1;
+    rep(i,0,n){
+        if(s[i]=='B'){
+
+        }
+    }
+    deb(dp);
 }
  
 int main() {
     IOS;
     precompute();
     ll t = 1;
-    // cin >> t;
+    cin >> t;
     for(int i = 1; i <= t; i++){
         //cout << "Case #<< i << " ";
         solve();

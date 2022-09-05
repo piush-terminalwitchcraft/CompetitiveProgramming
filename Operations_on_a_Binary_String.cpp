@@ -102,25 +102,51 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
-
+/*
+*/
 void precompute(){}
 void solve() {
-    ll n, tmp;  cin >> n;
-    ll oc = 0, ec = 0, oidx = -1, eidx = -1; 
-    rep(i,0,n){
-        cin >> tmp;
-        tmp%=2;
-        if(tmp) oc++,oidx=i+1;
-        else ec++,eidx=i+1;
+    ll n, k ; cin >> n >> k;
+    ll skr = 0,len = 0;
+    vll idx;
+    string s; cin >> s;
+    rep(i,0,n) {
+        if(s[i]=='0') len++;
+        else{
+            skr++;
+            if(len>0) {
+                if(2*len+1 <= k)
+                idx.pb(len);
+                else{
+                    ll midx = (k-1)/2;
+                    while(len > midx){
+                        idx.pb(midx);
+                        len -= midx;
+                    } 
+                    if(len>0) idx.pb(len);
+                }
+                len = 0;
+            }
+        }
     }
-    if(oc<ec)cout<<oidx;else cout<<eidx;
+    // deb(idx);
+    sort(all(idx));
+    reverse(all(idx));
+    for(auto it: idx){
+        if(k <3) break;
+        if(k >= 2*it+1){
+            k -= 2*it+1;
+            skr += it;
+        }
+    }
+    cout << skr << "\n";
 }
  
 int main() {
     IOS;
     precompute();
     ll t = 1;
-    // cin >> t;
+    cin >> t;
     for(int i = 1; i <= t; i++){
         //cout << "Case #<< i << " ";
         solve();

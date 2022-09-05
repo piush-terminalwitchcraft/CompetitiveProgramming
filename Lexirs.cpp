@@ -105,22 +105,18 @@ bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) re
 
 void precompute(){}
 void solve() {
-    ll n, tmp;  cin >> n;
-    ll oc = 0, ec = 0, oidx = -1, eidx = -1; 
-    rep(i,0,n){
-        cin >> tmp;
-        tmp%=2;
-        if(tmp) oc++,oidx=i+1;
-        else ec++,eidx=i+1;
-    }
-    if(oc<ec)cout<<oidx;else cout<<eidx;
+    ll n; cin >> n;
+    string s; cin >> s; 
+    vll cst(n); 
+    rep(i,0,n) cin >> cst[i];
+    
 }
  
 int main() {
     IOS;
     precompute();
     ll t = 1;
-    // cin >> t;
+    cin >> t;
     for(int i = 1; i <= t; i++){
         //cout << "Case #<< i << " ";
         solve();

@@ -102,18 +102,33 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
-
+/*
+problem reduced to find 3 longest substring x and y 
+*/
+int lps[ll(1e6+1)];
 void precompute(){}
 void solve() {
-    ll n, tmp;  cin >> n;
-    ll oc = 0, ec = 0, oidx = -1, eidx = -1; 
-    rep(i,0,n){
-        cin >> tmp;
-        tmp%=2;
-        if(tmp) oc++,oidx=i+1;
-        else ec++,eidx=i+1;
-    }
-    if(oc<ec)cout<<oidx;else cout<<eidx;
+    string s;
+    cin>>s;
+    int j=0;
+	for(int i=1;s[i];i++){
+		while(s[j]!=s[i] && j!=0) j=lps[j-1];
+		if(s[j]==s[i]) lps[i]=j+1, j++;
+	}
+	int n=s.size();
+	int midx=-1, ma=0;
+	for(int i=1;s[i];i++)
+		if(lps[i]==lps[n-1] && i!=n-1) 
+			if(ma<lps[i]) ma=lps[i], midx=i;
+	
+	if(midx==-1)
+		if(lps[lps[n-1]-1]!=0) ma=lps[lps[n-1]-1], midx=lps[lps[n-1]-1]-1;
+	if(midx!=-1) {
+		for(int i=0;i<ma;i++)
+			cout << s[midx-ma+1+i]; cout << endl;
+	}
+	else cout << "Just a legend\n";
+
 }
  
 int main() {

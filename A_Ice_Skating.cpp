@@ -102,18 +102,31 @@ ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*
 ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
 ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
+/*
+
+*/
+
+vpii a(1);
+vi vis(1);
+
+void dfs(int curr, int n){
+    vis[curr]=1;
+    rep(i,0,n) if(!vis[i] and (a[i].ff==a[curr].ff or a[i].ss==a[curr].ss)) dfs(i,n);
+}
 
 void precompute(){}
+
 void solve() {
-    ll n, tmp;  cin >> n;
-    ll oc = 0, ec = 0, oidx = -1, eidx = -1; 
+    ll n; cin >> n;
+    a = vpii(n);
+    vis = vi(n,0);
+    rep(i,0,n) cin>>a[i].ff>>a[i].ss;
+    ll ans = -1;
     rep(i,0,n){
-        cin >> tmp;
-        tmp%=2;
-        if(tmp) oc++,oidx=i+1;
-        else ec++,eidx=i+1;
+        if(!vis[i]) ans++, dfs(i,n);
     }
-    if(oc<ec)cout<<oidx;else cout<<eidx;
+
+    cout<<ans;
 }
  
 int main() {
