@@ -23,7 +23,8 @@
         "numeric": "cpp",
         "iomanip": "cpp",
         "type_traits": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "stacktrace": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

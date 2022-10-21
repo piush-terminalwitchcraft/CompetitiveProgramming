@@ -89,27 +89,32 @@ bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) re
 void solve() {
     ll n; ll k; cin>>n>>k;
     ll arr[n]; rep(i,0,n)cin>>arr[i];
-    ll tmp[n-k+1] = {0};
-    rep(i,0,k){
-        tmp[0]+=arr[i];
-        }
-    rep(i,1,n-k+1){
-        tmp[i] = tmp[i-1]+arr[i+k-1]-arr[i-1];
-        }
-    // rep(i,0,n-k+1)cout<<tmp[i]<<" ";
-    cout<<endl;
-    ll a, b, asum = -1, bsum = -1;
-    for(ll i=0;i<n-k+1;i++){
-        ll at = tmp[i];
-        for(ll j = i+k;j<n-k+1;j++){
-            ll bt = tmp[j];
-            if(at+bt>asum+bsum){
-                a = i; b = j;
-                asum = at; bsum = bt;
-            }
-        }
-    } 
-    cout<<a+1<<" "<<b+1;
+    vll pf(n,0);
+    pf[0]=arr[0];
+    rep(i,1,n){
+        pf[i]+=pf[i-1]+arr[i];
+        if(i-k>=0)pf[i]-=arr[i-k];
+    }
+    rep(i,0,k-1) pf[i]=-1;
+    vpll mxlft(n), mxrgt(n);
+    mxlft[k-1]=pll({pf[k-1],0});
+    rep(i,k,n){
+        if(mxlft[i-1].ff < pf[i]) mxlft[i]=pll({pf[i],i-k+1});
+        else mxlft[i]=mxlft[i-1];
+    }
+    mxrgt[n-1]=pll({pf[n-1],n-k});
+    repr(i,n-2,k-1){
+        if(mxrgt[i+1].ff <= pf[i]) mxrgt[i]=pll({pf[i],i-k+1});
+        else mxrgt[i]=mxrgt[i+1];
+    }
+    ll ans = 0,l = -1,r= -1;
+    rep(i,k-1,n-k){
+        if(ans < mxlft[i].ff+mxrgt[i+k].ff) ans=mxlft[i].ff+mxrgt[i+k].ff,l=mxlft[i].ss,r=mxrgt[i+k].ss;
+        // deb(mxlft[i],mxrgt[i+k]);
+    }
+    // deb(pf,mxlft,mxrgt);
+    cout<<l+1<<" "<<r+1<<"\n";
+
 }
 
 int main() {

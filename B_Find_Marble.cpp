@@ -87,7 +87,19 @@ ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
 void solve() {
-    ll n, s, e; cin>>n>>s>>e;
+    ll n, s, t; cin>>n>>s>>t;
+    vll k(n+1); rep(i,1,n+1)cin>>k[i];
+    ll stps = 0, idx = s;
+    while(1){
+        if(idx==t) break;
+        stps++;
+        idx=k[idx];
+        // deb(stps,idx);
+        if(idx==s) {
+            stps=-1; break;
+        }
+    }
+    cout<<stps;
     
     
 }

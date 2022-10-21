@@ -87,33 +87,31 @@ ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
 void solve() {
-    ll a,b,ans =0; cin>>a>>b;
-    map<ll,ll> mp;
-    rep(i,0,a){
-        ll n,m; cin>>n>>m;
-        mp[n+1] = m;
+    ll n, k; cin >> n >> k;
+    ll N = 10;
+    ll dp[N][2]; memset(dp,0,sizeof(dp));
+    rep(i,0,k){
+        ll a, b; cin >> a >> b; dp[a][0]+=b;
     }
-    for(ll i=1;i<=a+1;i++){
-        ll f = b;
-        for(auto& it: mp){
-            if(it.first+1>i){
-                // cout<<it.first<<" "<<it.second<<" "<<ans<<" \n";
-                if(it.second>=f){
-                    it.second-=f;
-                    ans+=f;
-                    f=0;
-                }
-                else{
-                    f-=it.second;
-                    ans+=(it.second);
-                    it.second = 0;
-                }
-                // cout<<it.first<<" "<<it.second<<" "<<ans<<" \n";
+    ll ans = 0;
+    rep(i,0,N){
+        deb(dp[i][0],dp[i][1]);
+        if(dp[i][1]>0){
+            ll tken = min(k,dp[i][1]);
+            dp[i][1]-= tken;
+            ans+=tken; 
+            if(tken < k){
+                ll tmpk = k-tken;
+                ans += min(tmpk,dp[i][0]);
+                dp[i+1][1]+=max(dp[i][0]-tmpk,0ll);
             }
         }
+        else {
+            ans += min(k,dp[i][0]);
+            dp[i+1][1]+=max(dp[i][0]-k,0ll);
+        }
     }
-
-    cout<<ans;
+    cout<<ans<<"\n";
 }
 
 int main() {

@@ -87,22 +87,12 @@ ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
 bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
 
 void solve() {
-    ll a[3], ans =0; cin>>a[0]>>a[1]>>a[2];
-    sort(a,a+3);
-    if(a[0]!=0){
-        ans+=a[0];
-        a[1]-=a[0];
-        a[2]-=a[0];
-        a[0]-=a[0];
-    }
-    // cout<<a[0]<<" "<<a[1]<<" "<<a[2]<<" \n";
-    if(a[1]>=3){
-        ans+=a[1]/3;
-    }
-    if(a[2]>=3){
-        ans+=a[2]/3;
-    }
-    cout<<ans;
+    vll a(3); rep(i,0,3)cin>>a[i];
+    sort(all(a));
+    ll ans = a[0]/3+a[1]/3+a[2]/3;
+    if(a[0]>=1) ans=max(ans,1+(a[0]-1)/3+(a[1]-1)/3+(a[2]-1)/3);
+    if(a[0]>=2) ans=max(ans,2+(a[0]-2)/3+(a[1]-2)/3+(a[2]-2)/3);
+    cout<<ans<<"\n";
     
 }
 

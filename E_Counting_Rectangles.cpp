@@ -118,9 +118,7 @@ void solve() {
         ll hs, ws, hb, wb; 
         cin >> hs >> ws >> hb >> wb;
         ll hnd = max(hs,hb), wnd = max(ws,wb), area = hnd*wnd;
-        pair<ll,ll> p = {area,hnd};
-        int idx = lower_bound(all(rec),p) - rec.begin();
-        _print(idx);
+        
 
 
     }
