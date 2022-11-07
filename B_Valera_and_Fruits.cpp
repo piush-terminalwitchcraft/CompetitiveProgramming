@@ -1,120 +1,142 @@
-#include <bits/stdc++.h>
-using namespace std;
-/* DEBUGGING */
-void __print(int x) { cerr << x; }
-void __print(long x) { cerr << x; }
-void __print(long long x) { cerr << x; }
-void __print(unsigned x) { cerr << x; }
-void __print(unsigned long x) { cerr << x; }
-void __print(unsigned long long x) { cerr << x; }
-void __print(float x) { cerr << x; }
-void __print(double x) { cerr << x; }
-void __print(long double x) { cerr << x; }
-void __print(char x) { cerr << '\'' << x << '\''; }
-void __print(const char *x) { cerr << '\"' << x << '\"'; }
-void __print(const string &x) { cerr << '\"' << x << '\"'; }
-void __print(bool x) { cerr << (x ? "true" : "false"); }
-template <typename T, typename V>
-void __print(const pair<T, V> &x) {
-    cerr << '{';
-    __print(x.first);
-    cerr << ',';
-    __print(x.second);
-    cerr << '}';
-}
-template <typename T>
-void __print(const T &x) {
-    int f = 0;
-    cerr << '{';
-    for (auto &i : x) cerr << (f++ ? "," : ""), __print(i);
-    cerr << "}";
-}
-void _print() { cerr << "]\n"; }
-template <typename T, typename... V>
-void _print(T t, V... v) {
-    __print(t);
-    if (sizeof...(v)) cerr << ", ";
-    _print(v...);
-}
-#ifndef ONLINE_JUDGE
-#define deb(x...)                 \
-    cerr << "[" << #x << "] = ["; \
-    _print(x)
-#else
-#define deb(x...)
+#undef NDEBUG
+#ifdef gridnevvvit
+#define _GLIBCXX_DEBUG
 #endif
-/* MACROS */
-typedef long long int ll;
 
-typedef pair<int, int> pii;
-typedef pair<ll, ll> pll;
+#include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <sstream>
 
-typedef vector<int> vi;
-typedef vector<ll> vll;
-typedef vector<pii> vpii;
-typedef vector<pll> vpll;
+#include <map>
+#include <set>
+#include <queue>
+#include <stack>
+#include <list>
+#include <vector>
+#include <string>
+#include <deque>
+#include <bitset>
+#include <algorithm>
+#include <utility>
+                  
+#include <functional>
+#include <limits>
+#include <numeric>
+#include <complex>
 
-typedef map<int, int> mii;
-typedef tuple<int, int, int> tup;
+#include <cassert>
+#include <cmath>
+#include <memory.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>   
 
-#define ff first
-#define ss second
+using namespace std;
+
+typedef long long li;
+typedef long double ld;
+typedef pair<int,int> pt;
+typedef pair<ld, ld> ptd;
+typedef unsigned long long uli;
+
 #define pb push_back
-#define IOS                           \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(NULL);                    \
-    cout.tie(NULL);
-#define lb lower_bound
-#define ub upper_bound
-#define all(x) (x).begin(), (x).end()
-#define sz(x) (x).size()
-#define ps(x, y) fixed << setprecision(y) << x
-#define setbit(x) __builtin_popcountll(x)
-#define rep(i, a, b) for (int i = a; i < b; ++i)
-#define repr(i, a, b) for (int i = a; i >= b; --i)
+#define mp make_pair
+#define mset(a, val) memset(a, val, sizeof (a))
+#define all(a) (a).begin(), (a).end()
+#define rall(a) (a).rbegin(), (a).rend()
+#define ft first
+#define sc second
+#define sz(a) int((a).size())
+#define x first
+#define y second
 
-/* CONSTANTS */
-#define PI 3.141592653589793
-const ll MOD = 1e9 + 7;
-const ll INF = 1000000000;
-const ll MAX_N = 2e5 + 2;
-ll add(ll x, ll y) {ll res=x+y; return(res>=MOD?res-MOD:res);}
-ll mul(ll x, ll y) {ll res=x*y; return(res>=MOD?res%MOD:res);}
-ll sub(ll x, ll y) {ll res=x-y; return(res<0?res+MOD:res);}
-ll power(ll a,ll b,ll m=MOD){ ll ans=1; a=a%m;  while(b>0) {  if(b&1)  ans=(1ll*a*ans)%m; b>>=1;a=(1ll*a*a)%m;}return ans;}
-ll gcd(ll a,ll b) { return b?gcd(b,a%b):a;}
-ll lcm( ll x, ll y) { return (x*y)/gcd(x,y);}
-bool isprime(ll n){if(n < 2) return 0; ll i = 2; while(i*i <= n){if(n%i == 0) return 0; i++;} return 1;}
+template<typename X> inline X abs(const X& a) { return (a < 0 ? -a : a); }
+template<typename X> inline X sqr(const X& a) { return (a * a); }
+template<typename T> inline string toStr(T x) { stringstream st; st << x; string s; st >> s; return s; }
+template<typename T> inline int hasBit(T mask, int b) { return (b >= 0 && (mask & (T(1) << b)) != 0) ? 1 : 0; }
+template<typename X, typename T>inline ostream& operator<< (ostream& out, const pair<T, X>& p) { return out << '(' << p.ft << ", " << p.sc << ')'; }
 
-void solve() {
-    ll n, k; cin >> n >> k;
-    ll N = 10;
-    ll dp[N][2]; memset(dp,0,sizeof(dp));
-    rep(i,0,k){
-        ll a, b; cin >> a >> b; dp[a][0]+=b;
+inline int nextInt() { int x; if (scanf("%d", &x) != 1) throw; return x; }
+inline li nextInt64() { li x; if (scanf("%I64d", &x) != 1) throw; return x; }
+inline double nextDouble() { double x; if (scanf("%lf", &x) != 1) throw; return x; }
+
+#define forn(i, n) for(int i = 0; i < int(n); i++)
+#define fore(i, a, b) for(int i = int(a); i <= int(b); i++)
+#define ford(i, n) for(int i = int(n - 1); i >= 0; i--)
+#define foreach(it, a) for(__typeof((a).begin()) it = (a).begin(); it != (a).end(); it++)
+
+const int INF = int(1e9);
+const li INF64 = li(INF) * li(INF);
+const ld EPS = 1e-9;
+const ld PI = ld(3.1415926535897932384626433832795);
+
+const int N = 3005;
+
+int n, a[N], b[N], v;
+
+inline bool read() {
+	n = nextInt();
+	v = nextInt();
+	
+	forn(i, n)
+	{
+	 	a[i] = nextInt();
+	 	b[i] = nextInt();
     }
-    ll ans = 0;
-    rep(i,0,N){
-        deb(dp[i][0],dp[i][1]);
-        if(dp[i][1]>0){
-            ll tken = min(k,dp[i][1]);
-            dp[i][1]-= tken;
-            ans+=tken; 
-            if(tken < k){
-                ll tmpk = k-tken;
-                ans += min(tmpk,dp[i][0]);
-                dp[i+1][1]+=max(dp[i][0]-tmpk,0ll);
-            }
-        }
-        else {
-            ans += min(k,dp[i][0]);
-            dp[i+1][1]+=max(dp[i][0]-k,0ll);
-        }
-    }
-    cout<<ans<<"\n";
+
+ 	return true;
+}
+              
+inline void solve() {
+	int fromLastDays = 0;
+
+	int ans = 0;
+                 
+	for(int day = 1; day <= 3001; day++) {
+		int curDay = 0;
+
+		forn(i, n)
+			if (a[i] == day)
+				curDay += b[i]; 	
+		
+		
+		if (curDay + fromLastDays <= v) {
+			ans += fromLastDays + curDay;
+			fromLastDays = 0;
+		} else {
+			ans += v;
+
+			int tv = v - fromLastDays;
+
+			if (tv < 0) tv = 0;
+        	
+        	        fromLastDays = curDay - tv;
+	 	}	
+	}
+
+	cout << ans << endl;
 }
 
-int main() {
-    IOS;
-    solve();
-}
+int main() 
+{
+
+#ifdef gridnevvvit
+	freopen("input.txt", "rt", stdin);
+	freopen("output.txt", "wt", stdout);
+#endif
+    
+	srand(time(NULL));
+
+	cout << setprecision(10) << fixed;
+	cerr << setprecision(5) << fixed;
+	
+	assert(read());
+	solve();
+
+#ifdef gridnevvvit
+	cerr << "===Time: " << clock()  << "===" << endl;
+#endif
+
+} 
