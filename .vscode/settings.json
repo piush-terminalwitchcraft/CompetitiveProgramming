@@ -24,7 +24,8 @@
         "iomanip": "cpp",
         "type_traits": "cpp",
         "cmath": "cpp",
-        "stacktrace": "cpp"
+        "stacktrace": "cpp",
+        "complex": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }
